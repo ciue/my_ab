@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>打星评价</title>
+  <style>
+    li {
+      list-style-type: none;
+    }
+
+    ul {
+      width: 100px;
+      margin: 50px auto;
+      overflow: hidden;
+    }
+
+    .rate>li {
+      position: absolute;
+      width: 100px;
+      height: 19px;
+      background: url(star.png) no-repeat scroll left top;
+    }
+
+    .rate .r1 {
+      width: 20px;
+      z-index: 5;
+    }
+
+    .rate .r2 {
+      width: 40px;
+      z-index: 4;
+    }
+
+    .rate .r3 {
+      width: 60px;
+      z-index: 3;
+    }
+
+    .rate .r4 {
+      width: 80px;
+      z-index: 2;
+    }
+
+    .rate .r5 {
+      width: 100px;
+      z-index: 1;
+    }
+
+    .rate .hover:hover {
+      background-color: #FFAC2D
+    }
+  </style>
+</head>
+
+<body>
+  <ul class="rate" id="rate">
+    <li class="r1 hover" title="1星"></li>
+    <li class="r2 hover" title="2星"></li>
+    <li class="r3 hover" title="3星"></li>
+    <li class="r4 hover" title="4星"></li>
+    <li class="r5 hover" title="5星"></li>
+  </ul>
+
+  <div class="controll">
+    <button class="reset" id="reset">重置</button>
+  </div>
+  <script>
+    let rate = document.querySelector('#rate')
+    let btn = document.querySelector('#reset')
+
+    oneEvt(rate, 'click', rating)
+    btn.addEventListener('click', reset)
+
+    // 点击打星
+    function rating(e) {
+      e.target.style.backgroundColor = '#FFAC2D'
+      let lis = e.target.parentNode.children
+      Array.prototype.forEach.call(lis, li => li.classList.remove('hover'));
+      alert(e.target.title)
+    }
+
+    // 重置
+    function reset(e) {
+      rate.addEventListener('click', rating)
+      let elLists = rate.querySelectorAll('li')
+      for (let i = 0; i < elLists.length; i++) {
+        const el = elLists[i];
+        el.classList.add('hover')
+        el.style.backgroundColor = ""
+      }
+    }
+
+    // 一次性事件
+    function oneEvt(el, type, fn) {
+      function handler(event) {
+        el.removeEventListener(type, handler);
+        fn(event);
+      }
+      el.addEventListener(type, handler);
+    }
+  </script>
+</body>
+
+</html>
