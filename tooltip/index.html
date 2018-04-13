@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>tooltip</title>
+  <style>
+    .tool {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-around;
+    }
+
+    .tool>.tooltip {
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tool" id="tool">
+    <button class="tooltip" id="dio" tooltip>木大木大木大 ↙</button>
+    <button class="tooltip" id="jojo" tooltip>↘ 欧拉欧拉欧拉</button>
+  </div>
+
+  <script>
+    let tool = document.querySelector('#tool')
+    tool.addEventListener('mouseover', (e) => {
+      let target = e.target
+      // if(target.querySelector('div')) return;
+      if (target.hasAttribute('tooltip')) {
+        let t_direction;
+        let t_width = '400';
+        let t_html;
+
+        switch (target.id) {
+          case 'jojo':
+            t_direction = 'left';
+            t_html = `<img src="./jojo.png" width="${t_width}">`
+            break;
+          case 'dio':
+            t_direction = 'right'
+            t_html = `<img src="./dio.png" width="${t_width}">`
+            break;
+          default:
+            return false
+            break;
+        }
+
+        showTip(target, t_direction, t_html, t_width)
+      }
+    })
+
+    function showTip(target, t_direction, t_html, t_width) {
+      let div = document.createElement('div')
+      let divStyle = div.style
+      div.id = 'tip'
+      divStyle.position = 'absolute'
+      divStyle[t_direction] = `-${t_width/2}px`
+      div.innerHTML = t_html
+      target.appendChild(div)
+    }
+
+    tool.addEventListener('mouseout', (e) => {
+      let target = e.target
+      if (target.hasAttribute('tooltip')) {
+        let div = target.querySelector('#tip')
+        div.parentElement.removeChild(div)
+      }
+    })
+  </script>
+</body>
+
+</html>
