@@ -17,6 +17,11 @@
 
     .tool>.tooltip {
       position: relative;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      box-shadow: 0 0 3px;
+      background-color: #ffffff;
     }
   </style>
 </head>
@@ -29,9 +34,29 @@
 
   <script>
     let tool = document.querySelector('#tool')
-    tool.addEventListener('mouseover', (e) => {
+    tool.addEventListener('mouseover', fn)
+
+    function showTip(target, t_direction, t_html, t_width) {
+      let div = document.createElement('div')
+      let divStyle = div.style
+      div.id = 'tip'
+      divStyle.position = 'absolute'
+      divStyle[t_direction] = `-${t_width/2}px`
+      div.innerHTML = t_html
+      div.addEventListener('mouseover', (e) => alert('1'))
+      target.appendChild(div)
+    }
+
+    tool.addEventListener('mouseout', (e) => {
       let target = e.target
-      // if(target.querySelector('div')) return;
+      if (target.hasAttribute('tooltip')) {
+        let div = target.querySelector('#tip')
+        div.parentElement.removeChild(div)
+      }
+    })
+
+    function fn(e) {
+      let target = e.target
       if (target.hasAttribute('tooltip')) {
         let t_direction;
         let t_width = '400';
@@ -53,25 +78,7 @@
 
         showTip(target, t_direction, t_html, t_width)
       }
-    })
-
-    function showTip(target, t_direction, t_html, t_width) {
-      let div = document.createElement('div')
-      let divStyle = div.style
-      div.id = 'tip'
-      divStyle.position = 'absolute'
-      divStyle[t_direction] = `-${t_width/2}px`
-      div.innerHTML = t_html
-      target.appendChild(div)
     }
-
-    tool.addEventListener('mouseout', (e) => {
-      let target = e.target
-      if (target.hasAttribute('tooltip')) {
-        let div = target.querySelector('#tip')
-        div.parentElement.removeChild(div)
-      }
-    })
   </script>
 </body>
 
