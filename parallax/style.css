@@ -1,0 +1,33 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.first {
+  /* display: none; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transition: all 1s;
+}
+
+.first img {
+  min-width: 100%;
+  height: 100%;
+}
+
+.second {
+  /* display: none; */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  z-index: 999;
+  transition: all 1.5s
+}
+
+.second h1 {
+  min-width: 100%;
+  height: 100%;
+}
