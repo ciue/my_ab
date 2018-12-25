@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>图片裁剪</title>
+  <style>
+    .crop-box, .preview-box {
+      display: inline-block;
+    }
+    .preview-box {
+      position: relative;
+      width:  100px;
+      height: 100px;
+      overflow: hidden;
+      vertical-align: top;
+      margin-left: 50px;
+    }
+    .preview-box img {
+      position: absolute;
+    }
+    .crop-box {
+      position: relative;
+      overflow: hidden;
+      cursor: move;
+    }
+    .crop-box .mask {
+      display: none;
+      position: absolute;
+      top: 0;
+      width: 100px;
+      height: 100px;
+      outline: 9999px solid rgba(100, 100, 100, 0.5); 
+      /* 利用 outline 不占据空间的特性来实现遮罩层，不会对布局产生任何影响.多部部分overflow:hiddeny隐藏*/
+    }
+  </style>
+</head>
+<body>
+  <section class="main">
+    <div class="crop-box" id="cropBox">
+      <img src="./alien.jpg" alt="异形" width="400px">
+      <div class="mask" id="mask"></div>
+    </div>
+
+    <div class="preview-box" id="previewBox">
+      <img src="./alien.jpg" alt="" width="400px">
+    </div>
+  </section>
+
+  <script src="./index.js"></script>
+</body>
+</html>
